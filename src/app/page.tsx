@@ -1,65 +1,66 @@
-import Image from "next/image";
+import EmailForm from "@/components/email-form";
+import { getEmailCount } from "./actions";
 
-export default function Home() {
+export default async function Home() {
+  const count = await getEmailCount();
+  const displayCount = count > 0 ? count.toString() : "20+";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Grid */}
+      <div className="absolute inset-0 bg-grid pointer-events-none" />
+
+      {/* Central glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 55% at 50% 50%, rgba(94, 234, 212, 0.05) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Top edge */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-400/15 to-transparent" />
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 md:px-10 py-24 flex flex-col gap-10">
+
+        {/* Eyebrow */}
+        <p className="anim-fade-up font-mono text-[10px] tracking-[0.35em] text-teal-400/45 uppercase">
+          Presence Labs · Early Access
+        </p>
+
+        {/* Headline */}
+        <h1 className="anim-fade-up anim-delay-1 font-display text-[2.5rem] md:text-[3.75rem] font-semibold tracking-tight leading-[1.08] text-white">
+          What if the things around you actually knew you were there.
+        </h1>
+
+        {/* Body copy */}
+        <div className="anim-fade-up anim-delay-2 flex flex-col gap-5">
+          <p className="text-slate-400 text-base md:text-[1.0625rem] leading-[1.75]">
+            Presence Labs is building open-source AI creatures<br />
+            that live on your desk, connect to your world,<br />
+            and grow with you over time.
+          </p>
+          <p className="text-slate-600 text-sm md:text-[0.9375rem] tracking-wide">
+            No subscriptions. No closed ecosystems. Yours completely.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Email form */}
+        <div className="anim-fade-up anim-delay-3">
+          <EmailForm />
         </div>
-      </main>
-    </div>
+
+        {/* Counter */}
+        <div className="anim-fade-up anim-delay-4 flex items-center gap-2.5 font-mono text-xs text-slate-600">
+          <span className="pulse-dot inline-block w-1.5 h-1.5 rounded-full bg-teal-400/50 shrink-0" />
+          <span>— {displayCount} people already waiting</span>
+        </div>
+      </div>
+
+      {/* Bottom edge */}
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+    </main>
   );
 }

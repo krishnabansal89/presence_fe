@@ -23,7 +23,7 @@ export default async function Home() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-400/15 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 md:px-10 py-24 flex flex-col gap-10">
+      <div className="relative z-10 w-full max-w-2xl mx-auto px-5 sm:px-8 md:px-10 py-14 sm:py-20 md:py-24 flex flex-col gap-7 md:gap-10">
 
         {/* Eyebrow */}
         <p className="anim-fade-up font-mono text-[10px] tracking-[0.35em] text-teal-400/45 uppercase">
@@ -31,15 +31,15 @@ export default async function Home() {
         </p>
 
         {/* Headline */}
-        <h1 className="anim-fade-up anim-delay-1 font-display text-[2.5rem] md:text-[3.75rem] font-semibold tracking-tight leading-[1.08] text-white">
+        <h1 className="anim-fade-up anim-delay-1 font-display text-[1.875rem] sm:text-[2.5rem] md:text-[3.75rem] font-semibold tracking-tight leading-[1.1] text-white">
           What if the things around you actually knew you were there.
         </h1>
 
         {/* Body copy */}
-        <div className="anim-fade-up anim-delay-2 flex flex-col gap-5">
-          <p className="text-slate-400 text-base md:text-[1.0625rem] leading-[1.75]">
-            Presence Labs is building open-source AI creatures<br />
-            that live on your desk, connect to your world,<br />
+        <div className="anim-fade-up anim-delay-2 flex flex-col gap-4">
+          <p className="text-slate-400 text-[0.9375rem] md:text-[1.0625rem] leading-[1.8]">
+            Presence Labs is building open-source AI creatures
+            that live on your desk, connect to your world,
             and grow with you over time.
           </p>
           <p className="text-slate-600 text-sm md:text-[0.9375rem] tracking-wide">

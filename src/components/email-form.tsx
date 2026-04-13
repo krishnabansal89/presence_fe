@@ -33,7 +33,7 @@ export default function EmailForm() {
 
   if (status === "success") {
     return (
-      <div className="relative inline-block px-5 py-4">
+      <div className="relative block px-5 py-4">
         <span className="absolute top-0 left-0 w-3 h-3 border-l border-t border-teal-400/40" />
         <span className="absolute top-0 right-0 w-3 h-3 border-r border-t border-teal-400/40" />
         <span className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-teal-400/40" />
@@ -45,14 +45,14 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
-      {/* Input + button row with corner brackets */}
+      {/* Input + button with corner brackets */}
       <div className="relative p-1.5">
         <span className="absolute top-0 left-0 w-4 h-4 border-l border-t border-teal-400/30" />
         <span className="absolute top-0 right-0 w-4 h-4 border-r border-t border-teal-400/30" />
         <span className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-teal-400/30" />
         <span className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-teal-400/30" />
 
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             ref={inputRef}
             type="email"
@@ -66,7 +66,7 @@ export default function EmailForm() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="btn-glow h-11 px-6 bg-teal-400/10 border border-teal-400/25 text-teal-300 hover:bg-teal-400/20 hover:border-teal-400/50 hover:text-teal-200 font-mono text-sm tracking-wide whitespace-nowrap cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed rounded-none"
+            className="btn-glow h-11 px-6 bg-teal-400/10 border border-teal-400/25 text-teal-300 hover:bg-teal-400/20 hover:border-teal-400/50 hover:text-teal-200 font-mono text-sm tracking-wide whitespace-nowrap cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed rounded-none w-full sm:w-auto"
           >
             {status === "loading" ? "···" : "I want this"}
           </button>

@@ -1,9 +1,7 @@
 import EmailForm from "@/components/email-form";
-import { getEmailCount } from "./actions";
 
 export default async function Home() {
-  const count = await getEmailCount();
-  const displayCount = count > 0 ? count.toString() : "17+";
+  const displayCount = "150+";
 
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">

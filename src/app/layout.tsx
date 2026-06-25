@@ -1,26 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Presence Labs",
-  description: "What if the things around you actually knew you were there.",
+  title: "Sudo — a desk creature by Presence Labs",
+  description:
+    "An expressive ESP32-S3 desk creature you can talk to, personalize, and extend. Open SDK, self-hostable AI, no forced subscription. By Presence Labs.",
 };
 
 export default function RootLayout({
@@ -31,9 +36,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} dark h-full antialiased`}
+      className={`${inter.variable} ${ibmPlexMono.variable} ${spaceGrotesk.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#04040a]">{children}</body>
+      <body className="min-h-full bg-canvas text-on-primary">{children}</body>
     </html>
   );
 }

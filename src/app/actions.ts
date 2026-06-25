@@ -16,15 +16,10 @@ export async function submitEmail(
 
   const existing = await col.findOne({ email: trimmed });
   if (existing) {
-    return { success: true, message: "You're already on the list. We'll be in touch." };
+    return { success: true, message: "You're already on the early access list." };
   }
 
   await col.insertOne({ email: trimmed, createdAt: new Date() });
 
-  return { success: true, message: "You're on the list. We'll be in touch." };
-}
-
-export async function getEmailCount(): Promise<number> {
-  const db = await getDb();
-  return db.collection("waitlist").countDocuments();
+  return { success: true, message: "You're on the early access list." };
 }

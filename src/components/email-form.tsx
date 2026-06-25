@@ -2,8 +2,21 @@
 
 import { useRef, useState } from "react";
 import { submitEmail } from "@/app/actions";
+import { cn } from "@/lib/utils";
 
-export default function EmailForm() {
+type EmailFormProps = {
+  buttonLabel?: string;
+  className?: string;
+  placeholder?: string;
+  variant?: "dark" | "light";
+};
+
+export default function EmailForm({
+  buttonLabel = "Get early access",
+  className,
+  placeholder = "email address",
+  variant = "dark",
+}: EmailFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -33,48 +46,59 @@ export default function EmailForm() {
 
   if (status === "success") {
     return (
-      <div className="relative block px-5 py-4">
-        <span className="absolute top-0 left-0 w-3 h-3 border-l border-t border-teal-400/40" />
-        <span className="absolute top-0 right-0 w-3 h-3 border-r border-t border-teal-400/40" />
-        <span className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-teal-400/40" />
-        <span className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-teal-400/40" />
-        <p className="font-mono text-sm text-teal-300">{message}</p>
+      <div
+        className={cn(
+          "rounded-[6px] border px-4 py-3 font-mono text-[13px] leading-normal",
+          variant === "dark"
+            ? "border-success/35 bg-canvas-soft text-success"
+            : "border-success/35 bg-white text-ink",
+          className
+        )}
+        role="status"
+        aria-live="polite"
+      >
+        <p>{message}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
-      {/* Input + button with corner brackets */}
-      <div className="relative p-1.5">
-        <span className="absolute top-0 left-0 w-4 h-4 border-l border-t border-teal-400/30" />
-        <span className="absolute top-0 right-0 w-4 h-4 border-r border-t border-teal-400/30" />
-        <span className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-teal-400/30" />
-        <span className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-teal-400/30" />
-
-        <div className="flex flex-col sm:flex-row gap-2">
-          <input
-            ref={inputRef}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your email"
-            autoComplete="email"
-            disabled={status === "loading"}
-            className="flex-1 h-11 px-4 bg-white/[0.03] border border-white/10 text-white placeholder:text-slate-600 text-sm font-mono rounded-none focus:outline-none focus:border-teal-400/40 focus:bg-white/[0.05] transition-all duration-200 disabled:opacity-40"
-          />
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="btn-glow h-11 px-6 bg-teal-400/10 border border-teal-400/25 text-teal-300 hover:bg-teal-400/20 hover:border-teal-400/50 hover:text-teal-200 font-mono text-sm tracking-wide whitespace-nowrap cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed rounded-none w-full sm:w-auto"
-          >
-            {status === "loading" ? "···" : "I want this"}
-          </button>
-        </div>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-2", className)}>
+      <div className="flex flex-col gap-3 sm:flex-row sm:gap-2">
+        <input
+          ref={inputRef}
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={placeholder}
+          autoComplete="email"
+          disabled={status === "loading"}
+          aria-label="Email address"
+          className={cn(
+            "h-12 w-full min-w-0 rounded-[3px] border px-4 text-[15px] outline-none transition disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:flex-1",
+            variant === "dark"
+              ? "border-hairline-soft bg-canvas text-on-primary placeholder:text-mute focus:border-link-blue-soft focus:ring-2 focus:ring-link-blue-soft/30"
+              : "border-hairline bg-white text-ink placeholder:text-mute focus:border-link-blue focus:ring-2 focus:ring-link-blue/20"
+          )}
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className={cn(
+            "h-12 rounded-full px-6 text-[15px] font-medium transition disabled:cursor-not-allowed disabled:opacity-50",
+            variant === "dark"
+              ? "bg-on-primary text-ink hover:bg-brand hover:shadow-[0_10px_30px_-10px_rgba(243,100,88,0.6)]"
+              : "bg-ink text-on-primary hover:bg-brand hover:text-ink hover:shadow-[0_10px_30px_-10px_rgba(243,100,88,0.55)]"
+          )}
+        >
+          {status === "loading" ? "Submitting" : buttonLabel}
+        </button>
       </div>
 
       {status === "error" && message && (
-        <p className="font-mono text-xs text-red-400/60 px-2">{message}</p>
+        <p className="px-1 font-mono text-[12px] text-error" role="alert">
+          {message}
+        </p>
       )}
     </form>
   );

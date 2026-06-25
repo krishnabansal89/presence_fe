@@ -1,5 +1,6 @@
 import EmailForm from "@/components/email-form";
 import HeroImage from "@/components/hero-image";
+import JsonLd from "@/components/json-ld";
 import LaunchVideo from "@/components/launch-video";
 import Reveal from "@/components/reveal";
 import SiteNav from "@/components/site-nav";
@@ -109,8 +110,19 @@ const faqs = [
 ];
 
 export default function Home() {
+  const faqJsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+
   return (
     <main id="top" className="site-shell min-h-screen bg-canvas text-on-primary">
+      <JsonLd data={faqJsonLd} />
       <SiteNav />
 
       {/* ─────────────────────────── Hero ─────────────────────────── */}
@@ -487,7 +499,7 @@ export default function Home() {
                 <a className="footer-link" href="https://x.com/presence_labs">Twitter / X</a>
                 <a className="footer-link" href="https://www.instagram.com/presencelabs.in">Instagram</a>
                 <a className="footer-link" href="https://www.youtube.com/@presencelabs">YouTube</a>
-                <a className="footer-link" href="https://presencelabs.in">presencelabs.in</a>
+                <a className="footer-link" href="https://www.presencelabs.in">presencelabs.in</a>
               </div>
             </div>
           </SplitSection>
